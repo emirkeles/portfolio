@@ -1,88 +1,112 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowDown, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Smartphone, User } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function Hero() {
+  const { t } = useLanguage();
+
+  const socialLinks = [
+    {
+      icon: <Github size={24} />,
+      href: 'https://github.com/emirkeles',
+      label: t('github'),
+      color: 'hover:text-gray-900'
+    },
+    {
+      icon: <Linkedin size={24} />,
+      href: 'https://linkedin.com/in/emirkeles',
+      label: t('linkedin'),
+      color: 'hover:text-blue-600'
+    },
+    {
+      icon: <Mail size={24} />,
+      href: 'mailto:emir@example.com',
+      label: t('email'),
+      color: 'hover:text-red-500'
+    },
+    {
+      icon: <Smartphone size={24} />,
+      href: 'https://apps.apple.com/developer/emir-keles/id123456789',
+      label: t('appstore'),
+      color: 'hover:text-blue-500'
+    }
+  ];
+
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white pt-20">
+      <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
+          className="space-y-8"
         >
+          {/* Avatar */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="w-32 h-32 mx-auto bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center shadow-2xl"
+          >
+            <User size={48} className="text-white" />
+          </motion.div>
+
+          {/* Name */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            className="text-5xl md:text-7xl font-bold text-gray-900 mb-6"
+            transition={{ delay: 0.4, duration: 0.8 }}
+            className="text-4xl md:text-5xl font-bold text-gray-900"
           >
-            Merhaba, Ben{' '}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">
-              Emir Keleş
-            </span>
+            {t('name')}
           </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
-          >
-            Frontend Developer & UI/UX Tasarımcısı
-          </motion.p>
-
+          {/* Title */}
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
-            className="text-lg text-gray-500 mb-12 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-gray-600 font-semibold"
           >
-            Modern web teknolojileri ile kullanıcı dostu ve etkileyici dijital deneyimler yaratıyorum.
-            React, Next.js ve TypeScript konularında uzmanım.
+            {t('title')}
           </motion.p>
 
-          <motion.div
+          {/* Description */}
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.8 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+            className="text-lg text-gray-500 max-w-lg mx-auto leading-relaxed"
           >
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#contact"
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-lg transition-all duration-300"
-            >
-              İletişime Geç
-            </motion.a>
-            
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="/cv.pdf"
-              target="_blank"
-              className="border-2 border-gray-300 text-gray-700 px-8 py-3 rounded-full font-semibold hover:border-gray-400 hover:shadow-lg transition-all duration-300 flex items-center gap-2"
-            >
-              <Download size={20} />
-              CV İndir
-            </motion.a>
-          </motion.div>
-        </motion.div>
+            {t('description')}
+          </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
-        >
+          {/* Social Links */}
           <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 2 }}
-            className="text-gray-400"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1, duration: 0.8 }}
+            className="flex justify-center space-x-6 pt-4"
           >
-            <ArrowDown size={24} />
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={social.label}
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.2 + index * 0.1, duration: 0.4 }}
+                whileHover={{ scale: 1.1, y: -2 }}
+                whileTap={{ scale: 0.9 }}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-4 bg-white rounded-2xl shadow-lg text-gray-600 ${social.color} transition-all duration-300 hover:shadow-xl`}
+                title={social.label}
+              >
+                {social.icon}
+              </motion.a>
+            ))}
           </motion.div>
         </motion.div>
       </div>
